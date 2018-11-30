@@ -1,35 +1,38 @@
 # docker-incidentHIVSN
 
-A dockerfile to create an image of the R environment required to run the 'incidentHIVSN' data analysis scripts ([_kamermanpr/incidentHIVSN_](https://github.com/kamermanpr/SPARS)).
+A dockerfile to create an image of the R environment required to run the 'hivsn-incidence' data analysis scripts ([kamermanpr/hivsn-incidence](https://github.com/kamermanpr/hiv-incidence.git)).
 
 ----
 
 ## R environment
 
-The image is built using the [rocker/verse](https://hub.docker.com/r/rocker/verse/) image of [_base R_](https://cran.r-project.org/) _v3.4.1_, and includes [_RStudio server_](https://www.rstudio.com/products/rstudio/#Server), the [_TinyTex_](https://yihui.name/tinytex/) Latex distribution, the [_tidyverse_](https://www.tidyverse.org/) suite of R packages (with dependencies), and several R packages (with dependencies) that are required to run the markdown scripts in [SPARS](https://github.com/kamermanpr/SPARS). CRAN packages were installed from [MRAN](https://mran.microsoft.com/timemachine) using the 2017-09-01 snapshot for _R v3.4.1_. The only package installed form GitHub (_thomasp85/patchwork_) was locked to the 19 December 2017 commit: [_b5cbd3088e44f852625dc0a4160335f7aa5e4709_](https://github.com/thomasp85/patchwork/tree/b5cbd3088e44f852625dc0a4160335f7aa5e4709).
+The image is built using the [_rocker/verse_](https://hub.docker.com/r/rocker/verse/) image of [_base R_](https://cran.r-project.org/) _v3.5.1_, and includes [_RStudio server_](https://www.rstudio.com/products/rstudio/#Server), the [_TinyTex_](https://yihui.name/tinytex/) Latex distribution, the [_tidyverse_](https://www.tidyverse.org/) suite of R packages (with dependencies), and several R packages (with dependencies) that are required to run the markdown scripts in [_hivsn-incidence_](https://github.com/kamermanpr/hivsn-incidence.git). CRAN packages were installed from [MRAN](https://mran.microsoft.com/timemachine) using the 2018-11-30 snapshot for _R v3.5.1_. The only package installed from GitHub (_thomasp85/patchwork_) was locked to the 22 September 2018 commit: [_fd7958bae3e7a1e30237c751952e412a0a1d1242_](https://github.com/thomasp85/patchwork/tree/fd7958bae3e7a1e30237c751952e412a0a1d1242).
 
 ### Details
 - **OS:**  
-    - Debian:stretch _(all kamermanpr/docker-spars version tags < v2.0.0)_   
+    - Debian:stretch
 - **R:**  
-    - v3.4.1  
+    - v3.5.1  
 - **RStudio server:**  
-    - v1.1.456 _(all kamermanpr/docker-spars version tags < v2.0.0)_  
+    - v1.1.456 
 - **GitHub packages:**  
     - patchwork  
 - **MRAN packages:**  
-    - boot  
-    - car  
-    - coin  
-    - epitools  
-    - ggplot2  
-    - lme4  
-    - lmerTest  
-    - ResourceSelection  
-    - rms  
-    - survminer  
-    - survival  
-    - tidyverse 
+    - boot
+	- car
+	- coin
+	- ggplot2
+	- glmnetUtils
+	- knitr
+	- lmerTest
+	- LogisticDx
+	- lubridate
+	- magrittr
+	- readxl
+	- rcompanion
+	- skimr
+	- survival
+	- survminer
 - **LaTex:**   
     - TinyTex
 
@@ -47,7 +50,7 @@ Enter: `docker pull kamermanpr/docker-incidentHIVSN:v1.0.1`
 
 Enter: `docker run -d -p 8787:8787 -v </PATH>:/home/rstudio --name hivsn kamermanpr/docker-incidentHIVSN:v1.0.1`
 
-Where `</PATH>` refers to the path to the SPARS directory on your computer, which you either cloned from GitHub ([_kamermanpr/incidentHIVSN_](https://github.com/kamermanpr/incidentHIVSN), `git clone https://github.com/kamermanpr/incidentHIVSN`), or downloaded and extracted from figshare ([DOI: 10.6084/m9.figshare.???????](https://doi.org/10.6084/m9.figshare.???????)).
+Where `</PATH>` refers to the path to the SPARS directory on your computer, which you either cloned from GitHub ([_kamermanpr/hivsn-incidence_](https://github.com/kamermanpr/hivsn-incidence.git), `git clone https://github.com/kamermanpr/hivsn-incidence`), or downloaded and extracted from figshare ([DOI: 10.6084/m9.figshare.???????](https://doi.org/10.6084/m9.figshare.???????)).
 
 #### Login to RStudio Server
 
@@ -72,7 +75,7 @@ To run all the scripts (including the data cleaning scripts), enter `make all` i
 To run individual RMarkdown scripts (_\*.Rmd_ files)
 
 1. Generate the cleaned data using one of the following methods:  
-    - Enter `make data-cleaned/????.rds` in the _Terminal_ tab in RStudio.  
+    - Enter `make data-cleaned/clean-data.rds` in the _Terminal_ tab in RStudio.  
     - Enter `source('clean-data.R')` in the _Console_ tab in RStudio.  
     - Open the _clean-data.R_ script through the _File_ tab in RStudio, and then click the **'Source'** button on the right of the _Script_ console in RStudio for each script.  
     
@@ -82,4 +85,4 @@ To run individual RMarkdown scripts (_\*.Rmd_ files)
 
 #### Shutting down
 
-Once done, log out of RStudio Server and enter the following into a terminal to stop the Docker container: `docker stop hivsn`. If you then want to remove the container, enter: `docker rm hivsn`. If you also want to remove the Docker image you downloaded, enter: `docker rmi kamermanpr/docker-incidentHIVSN:v1.0.1`
+Once done, log out of RStudio Server and enter the following into a terminal to stop the Docker container: `docker stop hivsn`. If you then want to remove the container, enter: `docker rm hivsn`. If you also want to remove the Docker image you downloaded, enter: `docker rmi kamermanpr/docker-hivsn-incidence:v1.0.1`
