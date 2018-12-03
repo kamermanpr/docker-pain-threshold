@@ -1,6 +1,6 @@
 ###############################################################################
 # 									                                                          #
-# KAMERMANPR/HIVSN-INCIDENCE  				                                        #
+# KAMERMANPR/PAIN-THRESHOLD  				                                        #
 #									                                                            #
 ###############################################################################
 
@@ -14,7 +14,6 @@ MAINTAINER Peter Kamerman <peter.kamerman@gmail.com>
 # Copying git_config.sh into /etc/cont-init.d sets it to run at startup
 
 COPY git_config.sh /etc/cont-init.d/gitconfig
-COPY set_theme.sh /etc/cont-init.d/theme
 
 #-- Install extra packages --#
 
