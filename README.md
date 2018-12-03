@@ -1,12 +1,12 @@
 # docker-incidentHIVSN
 
-A dockerfile to create an image of the R environment required to run the 'hivsn-incidence' data analysis scripts ([kamermanpr/hivsn-incidence](https://github.com/kamermanpr/hiv-incidence.git)).
+A dockerfile to create an image of the R environment required to run the 'pain-threshold' data analysis scripts ([kamermanpr/pain-threshold](https://github.com/kamermanpr/pain-threshold.git)).
 
 ----
 
 ## R environment
 
-The image is built using the [_rocker/verse_](https://hub.docker.com/r/rocker/verse/) image of [_base R_](https://cran.r-project.org/) _v3.5.1_, and includes [_RStudio server_](https://www.rstudio.com/products/rstudio/#Server), the [_TinyTex_](https://yihui.name/tinytex/) Latex distribution, the [_tidyverse_](https://www.tidyverse.org/) suite of R packages (with dependencies), and several R packages (with dependencies) that are required to run the markdown scripts in [_hivsn-incidence_](https://github.com/kamermanpr/hivsn-incidence.git). CRAN packages were installed from [MRAN](https://mran.microsoft.com/timemachine) using the 2018-11-30 snapshot for _R v3.5.1_. The only package installed from GitHub (_thomasp85/patchwork_) was locked to the 22 September 2018 commit: [_fd7958bae3e7a1e30237c751952e412a0a1d1242_](https://github.com/thomasp85/patchwork/tree/fd7958bae3e7a1e30237c751952e412a0a1d1242).
+The image is built using the [_rocker/verse_](https://hub.docker.com/r/rocker/verse/) image of [_base R_](https://cran.r-project.org/) _v3.5.1_, and includes [_RStudio server_](https://www.rstudio.com/products/rstudio/#Server), the [_TinyTex_](https://yihui.name/tinytex/) Latex distribution, the [_tidyverse_](https://www.tidyverse.org/) suite of R packages (with dependencies), and several R packages (with dependencies) that are required to run the markdown scripts in [_pain-threshold_](https://github.com/kamermanpr/pain-threshold.git). CRAN packages were installed from [MRAN](https://mran.microsoft.com/timemachine) using the 2018-11-30 snapshot for _R v3.5.1_.
 
 ### Details
 - **OS:**  
@@ -44,25 +44,25 @@ You need to have Docker installed on your computer. To do so, go to [docker.com]
 
 #### Download the latest image
 
-Enter: `docker pull kamermanpr/docker-incidentHIVSN:v1.0.1`
+Enter: `docker pull kamermanpr/docker-pain-threshold:v1.0.0`
 
 #### Run the container
 
-Enter: `docker run -d -p 8787:8787 -v </PATH>:/home/rstudio --name hivsn kamermanpr/docker-incidentHIVSN:v1.0.1`
+Enter: `docker run -d -p 8787:8787 -v </PATH>:/home/rstudio --name threshold -e USER=pain -e PASSWORD=threshold kamermanpr/docker-pain-threshold:v1.0.0`
 
-Where `</PATH>` refers to the path to the SPARS directory on your computer, which you either cloned from GitHub ([_kamermanpr/hivsn-incidence_](https://github.com/kamermanpr/hivsn-incidence.git), `git clone https://github.com/kamermanpr/hivsn-incidence`), or downloaded and extracted from figshare ([DOI: 10.6084/m9.figshare.???????](https://doi.org/10.6084/m9.figshare.???????)).
+Where `</PATH>` refers to the path to the SPARS directory on your computer, which you either cloned from GitHub ([_kamermanpr/pain-threshold_](https://github.com/kamermanpr/pain-threshold.git), `git clone https://github.com/kamermanpr/pain-threshold`), or downloaded and extracted from figshare ([DOI: 10.6084/m9.figshare.???????](https://doi.org/10.6084/m9.figshare.???????)).
 
 #### Login to RStudio Server
 
 - Open a web browser window and navigate to: `localhost:8787`
 
 - Use the following login credentials: 
-    - Username: _rstudio_	
-    - Password: _rstudio_
+    - Username: _pain_	
+    - Password: _threshold_
     
-#### Prepare the incidentHIVSN directory
+#### Prepare the pain-threshold directory
 
-The incidentHIVSN directory comes with the outputs for all the analysis scripts in the _/outputs_ directory (_html_ and *md* formats). However, should you wish to run the scripts yourself, there are several preparatory steps that are required:  
+The pain-threshold directory comes with the outputs for all the analysis scripts in the _/outputs_ directory (_html_ and *md* formats). However, should you wish to run the scripts yourself, there are several preparatory steps that are required:  
 
 1. Acquire the data. The data required to run the scripts have not been included in the repo because participants in the studies did not consent to public release of their data. However, the data are available on request from Peter Kamerman (peter.kamerman@gmail.com). Once the data have been obtained, the files should be copied into the _/data_ subdirectory.
 
@@ -75,9 +75,9 @@ To run all the scripts (including the data cleaning scripts), enter `make all` i
 To run individual RMarkdown scripts (_\*.Rmd_ files)
 
 1. Generate the cleaned data using one of the following methods:  
-    - Enter `make data-cleaned/clean-data.rds` in the _Terminal_ tab in RStudio.  
-    - Enter `source('clean-data.R')` in the _Console_ tab in RStudio.  
-    - Open the _clean-data.R_ script through the _File_ tab in RStudio, and then click the **'Source'** button on the right of the _Script_ console in RStudio for each script.  
+    - Enter `make data-cleaned/clean-SPARSA.rds` and then `make data-cleaned/clean-SPARSB.rds` in the _Terminal_ tab in RStudio.  
+    - Enter `source('clean-SPARSA.R')` and then `source('clean-SPARSB.R')` in the _Console_ tab in RStudio.  
+    - Open the _clean-SPARSA.R_ script through the _File_ tab in RStudio, and then click the **'Source'** button on the right of the _Script_ console in RStudio for each script. Repeat for `clean-SPARSB.R` 
     
 2. Run the individual script by:  
     - Entering `make outputs/<NAME_OF_INPUT_FILE>.html` in the _Terminal_ tab in RStudio, **OR**
@@ -85,4 +85,4 @@ To run individual RMarkdown scripts (_\*.Rmd_ files)
 
 #### Shutting down
 
-Once done, log out of RStudio Server and enter the following into a terminal to stop the Docker container: `docker stop hivsn`. If you then want to remove the container, enter: `docker rm hivsn`. If you also want to remove the Docker image you downloaded, enter: `docker rmi kamermanpr/docker-hivsn-incidence:v1.0.1`
+Once done, log out of RStudio Server and enter the following into a terminal to stop the Docker container: `docker stop threshold`. If you then want to remove the container, enter: `docker rm threshold`. If you also want to remove the Docker image you downloaded, enter: `docker rmi kamermanpr/docker-pain-threshold:v1.0.0`
