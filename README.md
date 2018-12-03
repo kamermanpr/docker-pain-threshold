@@ -1,4 +1,4 @@
-# docker-incidentHIVSN
+# docker-pain-threshold
 
 A dockerfile to create an image of the R environment required to run the 'pain-threshold' data analysis scripts ([kamermanpr/pain-threshold](https://github.com/kamermanpr/pain-threshold.git)).
 
@@ -6,7 +6,7 @@ A dockerfile to create an image of the R environment required to run the 'pain-t
 
 ## R environment
 
-The image is built using the [_rocker/verse_](https://hub.docker.com/r/rocker/verse/) image of [_base R_](https://cran.r-project.org/) _v3.5.1_, and includes [_RStudio server_](https://www.rstudio.com/products/rstudio/#Server), the [_TinyTex_](https://yihui.name/tinytex/) Latex distribution, the [_tidyverse_](https://www.tidyverse.org/) suite of R packages (with dependencies), and several R packages (with dependencies) that are required to run the markdown scripts in [_pain-threshold_](https://github.com/kamermanpr/pain-threshold.git). CRAN packages were installed from [MRAN](https://mran.microsoft.com/timemachine) using the 2018-11-30 snapshot for _R v3.5.1_.
+The image is built using the [_rocker/verse_](https://hub.docker.com/r/rocker/verse/) image of [_base R_](https://cran.r-project.org/) _v3.5.1_, and includes [_RStudio server_](https://www.rstudio.com/products/rstudio/#Server), the [_TinyTex_](https://yihui.name/tinytex/) Latex distribution, the [_tidyverse_](https://www.tidyverse.org/) suite of R packages (with dependencies), and several R packages (with dependencies) that are required to run the markdown scripts in [_pain-threshold_](https://github.com/kamermanpr/pain-threshold.git). CRAN packages were installed from [MRAN](https://mran.microsoft.com/timemachine) using the lasted package releases at the time the image was generated.
 
 ### Details
 - **OS:**  
@@ -19,20 +19,11 @@ The image is built using the [_rocker/verse_](https://hub.docker.com/r/rocker/ve
     - patchwork  
 - **MRAN packages:**  
     - boot
-	- car
-	- coin
-	- ggplot2
-	- glmnetUtils
-	- knitr
-	- lmerTest
-	- LogisticDx
-	- lubridate
-	- magrittr
-	- readxl
-	- rcompanion
-	- skimr
-	- survival
-	- survminer
+    - car
+    - knitr
+    - magrittr
+    - readxl
+    - skimr
 - **LaTex:**   
     - TinyTex
 
@@ -52,6 +43,8 @@ Enter: `docker run -d -p 8787:8787 -v </PATH>:/home/rstudio --name threshold -e 
 
 Where `</PATH>` refers to the path to the SPARS directory on your computer, which you either cloned from GitHub ([_kamermanpr/pain-threshold_](https://github.com/kamermanpr/pain-threshold.git), `git clone https://github.com/kamermanpr/pain-threshold`), or downloaded and extracted from figshare ([DOI: 10.6084/m9.figshare.???????](https://doi.org/10.6084/m9.figshare.???????)).
 
+If you use _git_ you can preconfigure the docker image with your _git_ credentials: `docker run -d -p 8787:8787 -v </PATH>:/home/rstudio --name threshold -e USER=pain -e PASSWORD=threshold -e GIT_USER="<your name" -e GIT_EMAIL="<your email address>" kamermanpr/docker-pain-threshold:v1.0.0`
+
 #### Login to RStudio Server
 
 - Open a web browser window and navigate to: `localhost:8787`
@@ -68,7 +61,7 @@ The pain-threshold directory comes with the outputs for all the analysis scripts
 
 2. Clean the _/outputs_ directory by entering `make clean` in the _Terminal_ tab in RStudio.
 
-#### Run the incidentHIVSN analysis scripts
+#### Run the pain-threshold analysis scripts
 
 To run all the scripts (including the data cleaning scripts), enter `make all` in the _Terminal_ tab in RStudio. 
 
