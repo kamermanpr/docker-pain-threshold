@@ -17,8 +17,8 @@ COPY git_config.sh /etc/cont-init.d/gitconfig
 
 #-- Install extra packages --#
 
-RUN install2.r --error --deps TRUE \
-	boot \
+RUN install2.r --error
+	--deps TRUE \
 	knitr \
 	magrittr \
 	readxl \
