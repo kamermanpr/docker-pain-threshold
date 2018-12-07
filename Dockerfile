@@ -7,6 +7,7 @@
 #-- Get the verse rocker image --#
 
 FROM rocker/verse:3.5.1
+ARG DEBIAN_FRONTED=noninteractive
 
 MAINTAINER Peter Kamerman <peter.kamerman@gmail.com>
 
