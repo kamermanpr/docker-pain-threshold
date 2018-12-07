@@ -20,7 +20,7 @@ COPY git_config.sh /etc/cont-init.d/gitconfig
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     	xorg \
-	ibx11-dev \
+	libx11-dev \
     	libglu1-mesa-dev \
 	libfreetype6-dev
 
