@@ -7,7 +7,6 @@
 #-- Get the verse rocker image --#
 
 FROM rocker/verse:3.5.1
-ARG DEBIAN_FRONTED=noninteractive
 
 MAINTAINER Peter Kamerman <peter.kamerman@gmail.com>
 
@@ -19,11 +18,9 @@ COPY git_config.sh /etc/cont-init.d/gitconfig
 #-- Install rgl (required for boot) package dependencies --#
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
+  && DEBIAN_FRONTED=noninteractive apt-get install -y --no-install-recommends \
     	xorg \
-	libx11-dev \
-    	libglu1-mesa-dev \
-	libfreetype6-dev
+    	libglu1-mesa-dev
 
 #-- Install extra packages --#
 
